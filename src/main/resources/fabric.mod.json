@@ -1,0 +1,40 @@
+{
+	"schemaVersion": 1,
+	"id": "arcsenal",
+	"version": "${version}",
+	"name": "Arcsenal",
+	"description": "Arc's silly weaponry mod",
+	"authors": [
+		"Arcintrus"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "All Rights Reserved",
+	"icon": "assets/arcsenal/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"media.arc.ArcSenal"
+		],
+		"client": [
+			"media.arc.client.ArcSenalClient"
+		],
+		"fabric-datagen": [
+			"media.arc.ArcSenalDataGenerator"
+		]
+	},
+	"mixins": [
+		"arcsenal.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.16.10",
+		"minecraft": "~1.19.2",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
