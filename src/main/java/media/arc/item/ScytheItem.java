@@ -1,6 +1,7 @@
 package media.arc.item;
 
-import media.arc.effect.ArcSenalEffects;
+import media.arc.index.ArcSenalEffects;
+import media.arc.index.ArcSenalItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
@@ -28,7 +29,7 @@ public class ScytheItem extends ExtendedSwordItem {
         if (!world.isClient) {
             user.getItemCooldownManager().set(this, 10); // 0.5 sec cooldown
 
-            Entity target = raycastEntity(user, 4.5D);
+            Entity target = raycastEntity(user, 5.5D);
 
             if (target instanceof LivingEntity living && target != user) {
                 // Player's center position (accounts for height)

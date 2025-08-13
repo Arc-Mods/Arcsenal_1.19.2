@@ -1,6 +1,6 @@
 package media.arc.item;
 
-import media.arc.ArcSenal;
+import media.arc.index.ArcSenalItems;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolMaterial;

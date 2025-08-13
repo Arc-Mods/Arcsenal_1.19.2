@@ -1,4 +1,4 @@
-package media.arc;
+package media.arc.index;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;

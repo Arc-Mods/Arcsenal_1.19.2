@@ -1,5 +1,6 @@
-package media.arc.effect;
+package media.arc.index;
 
+import media.arc.effect.StunEffect;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;

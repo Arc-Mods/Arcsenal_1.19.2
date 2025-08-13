@@ -1,6 +1,7 @@
-package media.arc.item;
+package media.arc.index;
 
 import media.arc.ArcSenal;
+import media.arc.item.ScytheItem;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;

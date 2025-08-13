@@ -3,8 +3,8 @@ package media.arc.item;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
-import media.arc.ArcDamageSources;
-import media.arc.ArcSenal;
+import media.arc.index.ArcDamageSources;
+import media.arc.index.ArcSenalItems;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
@@ -15,7 +15,6 @@ import net.minecraft.item.ToolMaterial;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.world.GameMode;
 import net.minecraft.world.World;
 
 import java.util.UUID;

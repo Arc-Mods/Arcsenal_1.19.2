@@ -1,7 +1,7 @@
 package media.arc;
 
-import media.arc.effect.ArcSenalEffects;
-import media.arc.item.ArcSenalItems;
+import media.arc.index.ArcSenalEffects;
+import media.arc.index.ArcSenalItems;
 import net.fabricmc.api.ModInitializer;
 
 import net.minecraft.item.ToolMaterial;

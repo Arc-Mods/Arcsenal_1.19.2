@@ -1,7 +1,7 @@
 package media.arc.mixin.client;
 
 import media.arc.ArcSenal;
-import media.arc.item.ArcSenalItems;
+import media.arc.index.ArcSenalItems;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.BakedModel;
