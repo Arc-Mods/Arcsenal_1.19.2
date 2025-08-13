@@ -1,7 +1,6 @@
 package media.arc;
 
 import media.arc.effect.ArcSenalEffects;
-import media.arc.entity.ArcSenalEntities;
 import media.arc.item.ArcSenalItems;
 import net.fabricmc.api.ModInitializer;
 
@@ -19,7 +18,6 @@ public class ArcSenal implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		ArcSenalItems.init();
-		ArcSenalEntities.init();
 		ArcSenalEffects.init();
 
 		LOGGER.info("Arcsenal Loaded!");
