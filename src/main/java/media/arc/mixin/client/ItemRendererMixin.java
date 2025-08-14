@@ -33,6 +33,7 @@ public abstract class ItemRendererMixin {
         if (stack.isEmpty()) return original;
 
         if (stack.isOf(ArcSenalItems.SCYTHE)) id = new Identifier(ArcSenal.MOD_ID, "scythe");
+        if (stack.isOf(ArcSenalItems.HAMMER)) id = new Identifier(ArcSenal.MOD_ID, "hammer");
 
         if (id != null && renderMode != ModelTransformation.Mode.FIXED) {
             String path = renderMode == ModelTransformation.Mode.GUI || renderMode == ModelTransformation.Mode.GROUND

@@ -1,9 +1,15 @@
 package media.arc.item;
 
+import com.google.common.collect.ImmutableMultimap;
+import com.google.common.collect.Multimap;
+import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
 import media.arc.index.ArcSenalEffects;
 import media.arc.index.ArcSenalItems;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.EntityAttribute;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
@@ -18,6 +24,8 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
+import java.util.UUID;
+
 public class ScytheItem extends ExtendedSwordItem {
 
     public ScytheItem(ToolMaterial mat) {
@@ -27,7 +35,7 @@ public class ScytheItem extends ExtendedSwordItem {
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         if (!world.isClient) {
-            user.getItemCooldownManager().set(this, 10); // 0.5 sec cooldown
+            user.getItemCooldownManager().set(this, 20); // 1 sec cooldown
 
             Entity target = raycastEntity(user, 5.5D);
 
@@ -94,5 +102,26 @@ public class ScytheItem extends ExtendedSwordItem {
     @Override
     public boolean canDisableShields() {
         return true;
+    }
+
+    @Override
+    public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(EquipmentSlot slot) {
+        if (slot == EquipmentSlot.MAINHAND) {
+            ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableMultimap.builder();
+            builder.putAll(super.getAttributeModifiers(slot));
+
+            builder.put(ReachEntityAttributes.ATTACK_RANGE,
+                    new EntityAttributeModifier(
+                            UUID.fromString("a67e3cc0-45d5-4e8e-9d64-7421e1b5fe3e"),
+                            "Scythe Additional range",
+                            0.5,
+                            EntityAttributeModifier.Operation.ADDITION
+                    )
+            );
+
+            return builder.build();
+        }
+
+        return super.getAttributeModifiers(slot);
     }
 }
