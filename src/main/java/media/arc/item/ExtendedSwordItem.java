@@ -56,5 +56,5 @@ public abstract class ExtendedSwordItem extends SwordItem {
 
     public abstract boolean hasGlint(ItemStack stack);
 
-    public abstract boolean canDisableShields(ItemStack stack);
+    public abstract boolean canDisableShield(ItemStack stack, LivingEntity entity, LivingEntity attacker);
 }

@@ -1,10 +1,7 @@
 package media.arc.index;
 
 import media.arc.ArcSenal;
-import media.arc.item.BaseHammerItem;
-import media.arc.item.ChromeScytheItem;
-import media.arc.item.HammerItem;
-import media.arc.item.ScytheItem;
+import media.arc.item.*;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -16,6 +13,7 @@ public class ArcSenalItems {
 
     public static final Item SCYTHE = register("scythe", new ScytheItem(ArcSenal.ARCSENAL));
     public static final Item SCYTHE_CHROME = register("scythe_chrome", new ChromeScytheItem(ArcSenal.ARCSENAL));
+    public static final Item SCYTHE_SCISSOR = register("scythe_scissor", new ScissorScytheItem(ArcSenal.ARCSENAL));
     public static final Item HAMMER = register("hammer", new HammerItem(ArcSenal.ARCSENAL));
     public static final Item HAMMER_BASE = register("hammer_base", new BaseHammerItem(ArcSenal.ARCSENAL));
 
@@ -29,6 +27,7 @@ public class ArcSenalItems {
             .appendItems(stacks -> {
                 stacks.add(new ItemStack(SCYTHE));
                 stacks.add(new ItemStack(SCYTHE_CHROME));
+                stacks.add(new ItemStack(SCYTHE_SCISSOR));
                 stacks.add(new ItemStack(HAMMER));
                 stacks.add(new ItemStack(HAMMER_BASE));
             })

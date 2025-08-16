@@ -26,6 +26,7 @@ public abstract class ModelLoaderMixin {
         String[] modelNames = {
                 "scythe",
                 "scythe_chrome",
+                "scythe_scissor",
                 "hammer",
                 "hammer_base"
 

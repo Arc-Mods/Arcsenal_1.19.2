@@ -1,6 +1,8 @@
 package media.arc.item;
 
 import media.arc.index.ArcSenalItems;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
@@ -8,9 +10,12 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUsageContext;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.hit.EntityHitResult;
@@ -36,7 +41,7 @@ public class HammerItem extends ExtendedSwordItem{
             Entity target = raycastEntity(user, 3.5D);
 
             if (target instanceof LivingEntity living && target != user) {
-                living.damage(DamageSource.GENERIC, 4.0f);
+                living.damage(DamageSource.player(user), 4.0f);
 
                 Vec3d look = user.getRotationVec(1.0F).normalize();
                 living.takeKnockback(1.5, -look.x, -look.z);
@@ -73,13 +78,43 @@ public class HammerItem extends ExtendedSwordItem{
         return ehr != null ? ehr.getEntity() : null;
     }
 
+    public ActionResult useOnBlock(ItemUsageContext context) {
+        BlockState state = context.getWorld().getBlockState(context.getBlockPos());
+        PlayerEntity user = context.getPlayer();
+        if (user != null && user.isSneaking() && state.isOf(Blocks.ANVIL)) {
+            ItemStack stack = user.getMainHandStack();
+            if (stack.isOf(ArcSenalItems.HAMMER)) {
+                stack.decrement(1);
+                user.giveItemStack(ArcSenalItems.HAMMER_BASE.getDefaultStack());
+                user.playSound(SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, 0.8F, 1.0F);
+            }
+            return ActionResult.SUCCESS;
+        }
+        if (user != null && user.isSneaking() && state.isOf(Blocks.SMITHING_TABLE)) {
+            ItemStack stack = user.getMainHandStack();
+            if (stack.isOf(ArcSenalItems.HAMMER)) {
+                stack.decrement(1);
+                user.giveItemStack(ArcSenalItems.HAMMER_BASE.getDefaultStack());
+                user.playSound(SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, 0.8F, 1.0F);
+            }
+            return ActionResult.SUCCESS;
+        }
+        return super.useOnBlock(context);
+    }
+
     @Override
     public boolean hasGlint(ItemStack stack) {
         return false;
     }
 
     @Override
-    public boolean canDisableShields(ItemStack stack) {
-        return true;
+    public boolean isEnchantable(ItemStack stack) {
+        return false; // Prevents enchanting via table
     }
+
+    @Override
+    public boolean canDisableShield(ItemStack stack, LivingEntity entity, LivingEntity attacker) {
+        return false;
+    }
+
 }

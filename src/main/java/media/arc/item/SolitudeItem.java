@@ -93,7 +93,7 @@ public class SolitudeItem extends ExtendedSwordItem {
     }
 
     @Override
-    public boolean canDisableShields(ItemStack stack) {
+    public boolean canDisableShield(ItemStack stack, LivingEntity entity, LivingEntity attacker) {
         return true;
     }
 }

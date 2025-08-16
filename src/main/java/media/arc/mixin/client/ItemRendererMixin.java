@@ -34,6 +34,7 @@ public abstract class ItemRendererMixin {
 
         if (stack.isOf(ArcSenalItems.SCYTHE)) id = new Identifier(ArcSenal.MOD_ID, "scythe");
         if (stack.isOf(ArcSenalItems.SCYTHE_CHROME)) id = new Identifier(ArcSenal.MOD_ID, "scythe_chrome");
+        if (stack.isOf(ArcSenalItems.SCYTHE_SCISSOR)) id = new Identifier(ArcSenal.MOD_ID, "scythe_scissor");
         if (stack.isOf(ArcSenalItems.HAMMER)) id = new Identifier(ArcSenal.MOD_ID, "hammer");
         if (stack.isOf(ArcSenalItems.HAMMER_BASE)) id = new Identifier(ArcSenal.MOD_ID, "hammer_base");
 

@@ -7,6 +7,7 @@ import media.arc.index.ArcSenalEffects;
 import media.arc.index.ArcSenalItems;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -23,19 +24,23 @@ import net.minecraft.item.Item;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.UUID;
 
-public class ScytheItem extends ExtendedSwordItem {
+public class ScissorScytheItem extends ExtendedSwordItem {
 
-    public ScytheItem(ToolMaterial mat) {
+    public ScissorScytheItem(ToolMaterial mat) {
         super(mat, 5, -3f, new Item.Settings().group(ArcSenalItems.GROUP), 1.0, 1.0);
     }
 
@@ -101,26 +106,24 @@ public class ScytheItem extends ExtendedSwordItem {
         PlayerEntity user = context.getPlayer();
         if (user != null && user.isSneaking() && state.isOf(Blocks.ANVIL)) {
             ItemStack stack = user.getMainHandStack();
-            if (stack.isOf(ArcSenalItems.SCYTHE)) {
+            if (stack.isOf(ArcSenalItems.SCYTHE_SCISSOR)) {
                 stack.decrement(1);
-                user.giveItemStack(ArcSenalItems.SCYTHE_CHROME.getDefaultStack());
+                user.giveItemStack(ArcSenalItems.SCYTHE.getDefaultStack());
                 user.playSound(SoundEvents.BLOCK_ANVIL_USE, 0.8F, 1.0F);
             }
             return ActionResult.SUCCESS;
         }
         if (user != null && user.isSneaking() && state.isOf(Blocks.SMITHING_TABLE)) {
             ItemStack stack = user.getMainHandStack();
-            if (stack.isOf(ArcSenalItems.SCYTHE)) {
+            if (stack.isOf(ArcSenalItems.SCYTHE_SCISSOR)) {
                 stack.decrement(1);
-                user.giveItemStack(ArcSenalItems.SCYTHE_CHROME.getDefaultStack());
+                user.giveItemStack(ArcSenalItems.SCYTHE.getDefaultStack());
                 user.playSound(SoundEvents.BLOCK_SMITHING_TABLE_USE, 0.8F, 1.0F);
             }
             return ActionResult.SUCCESS;
         }
         return super.useOnBlock(context);
     }
-
-
 
     @Override
     public void inventoryTick(ItemStack stack, World world, LivingEntity entity, int slot, boolean selected) {
@@ -163,5 +166,10 @@ public class ScytheItem extends ExtendedSwordItem {
         }
 
         return super.getAttributeModifiers(slot);
+    }
+
+    @Override
+    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+        tooltip.add(Text.literal("Skin: Scissorblade").formatted(Formatting.LIGHT_PURPLE));
     }
 }

@@ -5,6 +5,8 @@ import com.google.common.collect.Multimap;
 import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
 import media.arc.index.ArcSenalEffects;
 import media.arc.index.ArcSenalItems;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
@@ -16,11 +18,14 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUsageContext;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
@@ -52,7 +57,7 @@ public class ChromeScytheItem extends ExtendedSwordItem {
 
                 Vec3d pullVec = playerPos.subtract(targetPos);
                 double distance = pullVec.length();
-                double strength = Math.min(distance * 0.35, 1.5);
+                double strength = Math.min(distance * 3.35, 2.5);
 
                 pullVec = pullVec.normalize().multiply(strength);
 
@@ -60,7 +65,7 @@ public class ChromeScytheItem extends ExtendedSwordItem {
                 living.velocityModified = true;
 
                 living.addStatusEffect(new StatusEffectInstance(ArcSenalEffects.STUN, 15, 0));
-                living.damage(DamageSource.GENERIC, 2.0f);
+                living.damage(DamageSource.player(user), 2.0f);
 
                 // Replace user.spawnSweepAttackParticles() with:
                 ((ServerWorld) world).spawnParticles(
@@ -96,6 +101,30 @@ public class ChromeScytheItem extends ExtendedSwordItem {
         return ehr != null ? ehr.getEntity() : null;
     }
 
+    public ActionResult useOnBlock(ItemUsageContext context) {
+        BlockState state = context.getWorld().getBlockState(context.getBlockPos());
+        PlayerEntity user = context.getPlayer();
+        if (user != null && user.isSneaking() && state.isOf(Blocks.ANVIL)) {
+            ItemStack stack = user.getMainHandStack();
+            if (stack.isOf(ArcSenalItems.SCYTHE_CHROME)) {
+                stack.decrement(1);
+                user.giveItemStack(ArcSenalItems.SCYTHE_SCISSOR.getDefaultStack());
+                user.playSound(SoundEvents.BLOCK_ANVIL_USE, 0.8F, 1.0F);
+            }
+            return ActionResult.SUCCESS;
+        }
+        if (user != null && user.isSneaking() && state.isOf(Blocks.SMITHING_TABLE)) {
+            ItemStack stack = user.getMainHandStack();
+            if (stack.isOf(ArcSenalItems.SCYTHE_CHROME)) {
+                stack.decrement(1);
+                user.giveItemStack(ArcSenalItems.SCYTHE_SCISSOR.getDefaultStack());
+                user.playSound(SoundEvents.BLOCK_SMITHING_TABLE_USE, 0.8F, 1.0F);
+            }
+            return ActionResult.SUCCESS;
+        }
+        return super.useOnBlock(context);
+    }
+
 
 
     @Override
@@ -110,8 +139,14 @@ public class ChromeScytheItem extends ExtendedSwordItem {
     }
 
     @Override
-    public boolean canDisableShields(ItemStack stack) {
+    public boolean canDisableShield(ItemStack stack, LivingEntity entity, LivingEntity attacker) {
         return true;
+    }
+
+
+    @Override
+    public boolean isEnchantable(ItemStack stack) {
+        return false; // Prevents enchanting via table
     }
 
     @Override
