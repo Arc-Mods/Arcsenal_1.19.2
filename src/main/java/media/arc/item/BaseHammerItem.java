@@ -1,6 +1,7 @@
 package media.arc.item;
 
 import media.arc.index.ArcSenalItems;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
@@ -11,16 +12,21 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
-public class HammerItem extends ExtendedSwordItem{
+import java.util.List;
 
-    public HammerItem(ToolMaterial mat){
+public class BaseHammerItem extends ExtendedSwordItem{
+
+    public BaseHammerItem(ToolMaterial mat){
         super(mat,4,-2.9f, new Item.Settings().group(ArcSenalItems.GROUP), 1.0, 1.0);
     }
 
@@ -41,6 +47,7 @@ public class HammerItem extends ExtendedSwordItem{
                 Vec3d look = user.getRotationVec(1.0F).normalize();
                 living.takeKnockback(1.5, -look.x, -look.z);
 
+                // Replace user.addCritParticles(living) with:
                 ((ServerWorld) world).spawnParticles(
                         ParticleTypes.CRIT,
                         living.getX(),
@@ -80,6 +87,11 @@ public class HammerItem extends ExtendedSwordItem{
 
     @Override
     public boolean canDisableShields(ItemStack stack) {
-        return true;
+        return false;
+    }
+
+    @Override
+    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+        tooltip.add(Text.literal("Skin: Industrial").formatted(Formatting.GRAY));
     }
 }

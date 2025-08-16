@@ -25,7 +25,9 @@ public abstract class ModelLoaderMixin {
     public void arc$addCustomModels(ResourceManager resourceManager, BlockColors blockColors, Profiler profiler, int mipmapLevel, CallbackInfo ci) {
         String[] modelNames = {
                 "scythe",
-                "hammer"
+                "scythe_chrome",
+                "hammer",
+                "hammer_base"
 
         };
 

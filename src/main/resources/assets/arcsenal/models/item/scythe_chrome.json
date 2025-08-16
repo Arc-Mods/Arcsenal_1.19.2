@@ -3,7 +3,7 @@
 	"credit": "Made with Blockbench",
 	"parent": "item/handheld",
 	"textures": {
-		"layer0": "arcsenal:item/scythe"
+		"layer0": "arcsenal:item/scythe_chrome"
 	},
 	"display": {
 		"thirdperson_righthand": {

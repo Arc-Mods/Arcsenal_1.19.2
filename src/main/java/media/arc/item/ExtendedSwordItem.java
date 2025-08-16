@@ -54,7 +54,7 @@ public abstract class ExtendedSwordItem extends SwordItem {
 
     public abstract void inventoryTick(ItemStack stack, World world, LivingEntity entity, int slot, boolean selected);
 
-    public abstract boolean hasGlint();
+    public abstract boolean hasGlint(ItemStack stack);
 
-    public abstract boolean canDisableShields();
+    public abstract boolean canDisableShields(ItemStack stack);
 }

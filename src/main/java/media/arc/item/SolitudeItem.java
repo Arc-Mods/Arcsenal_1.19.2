@@ -88,12 +88,12 @@ public class SolitudeItem extends ExtendedSwordItem {
     }
 
     @Override
-    public boolean hasGlint() {
+    public boolean hasGlint(ItemStack stack) {
         return false;
     }
 
     @Override
-    public boolean canDisableShields() {
+    public boolean canDisableShields(ItemStack stack) {
         return true;
     }
 }

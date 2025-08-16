@@ -1,13 +1,19 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "nns",
-    "n s",
+    "nnD",
+    "C s",
     "  s"
   ],
   "key": {
     "n": {
-      "item": "minecraft:netherite_ingot"
+      "item": "minecraft:obsidian"
+    },
+    "D": {
+      "item": "minecraft:diamond"
+    },
+    "C": {
+      "item": "minecraft:crying_obsidian"
     },
     "s": {
       "item": "minecraft:stick"

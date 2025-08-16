@@ -5,6 +5,7 @@ import com.google.common.collect.Multimap;
 import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
 import media.arc.index.ArcSenalEffects;
 import media.arc.index.ArcSenalItems;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -19,18 +20,22 @@ import net.minecraft.item.ToolMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.UUID;
 
-public class ScytheItem extends ExtendedSwordItem {
+public class ChromeScytheItem extends ExtendedSwordItem {
 
-    public ScytheItem(ToolMaterial mat) {
+    public ChromeScytheItem(ToolMaterial mat) {
         super(mat, 5, -3f, new Item.Settings().group(ArcSenalItems.GROUP), 1.0, 1.0);
     }
 
@@ -128,5 +133,10 @@ public class ScytheItem extends ExtendedSwordItem {
         }
 
         return super.getAttributeModifiers(slot);
+    }
+
+    @Override
+    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+        tooltip.add(Text.literal("Skin: Chrome").formatted(Formatting.GRAY));
     }
 }
